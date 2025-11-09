@@ -22,6 +22,7 @@ export function getDocumentsStore() {
 router.post('/message', async (req, res) => {
   try {
     const { message, sessionId, documents, context, language = 'en' } = req.body;
+    console.log('🌍 Backend received language:', language);
 
     if (!message) {
       return res.status(400).json({ error: 'Message is required' });
@@ -218,6 +219,7 @@ function buildPrompt(message, context, documentIds = [], language = 'en') {
   
   // Add language instruction
   if (language !== 'en') {
+    console.log('✅ Adding language instruction for:', languageName);
     prompt += `🌍 **LANGUAGE REQUIREMENT (CRITICAL):**\n`;
     prompt += `- You MUST respond in ${languageName}\n`;
     prompt += `- The user's question may be in English, but your ENTIRE response must be in ${languageName}\n`;
@@ -225,6 +227,8 @@ function buildPrompt(message, context, documentIds = [], language = 'en') {
     prompt += `- Keep markdown formatting intact (**, ##, -, etc.)\n`;
     prompt += `- Maintain professional tone in ${languageName}\n`;
     prompt += `- Do NOT mix languages - use ONLY ${languageName}\n\n`;
+  } else {
+    console.log('✅ Using English (no language instruction added)');
   }
 
   prompt += `---\n\n`;

@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, Bell, Globe, Shield, Database, Zap, Check, Save } from 'lucide-react';
 import { updateSettings } from '../utils/api';
 
 const SettingsPage = ({ settings, setSettings, userId }) => {
-  const [localSettings, setLocalSettings] = useState(settings);
+  const [localSettings, setLocalSettings] = useState(settings || { language: 'en', notifications: true, autoSave: true });
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  // Sync localSettings with settings prop changes
+  useEffect(() => {
+    if (settings) {
+      setLocalSettings(settings);
+    }
+  }, [settings]);
 
   const handleChange = (key, value) => {
     setLocalSettings({ ...localSettings, [key]: value });
