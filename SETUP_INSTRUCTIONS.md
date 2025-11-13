@@ -139,7 +139,7 @@ Make sure `backend/.env` has:
 ```env
 PORT=5000
 CORS_ORIGIN=http://localhost:5173
-GEMINI_API_KEY=AIzaSyA1_4PzYWWfIlLLnoXzW6_U-LcYEOXn6XQ
+GEMINI_API_KEY=paste your api key
 NODE_ENV=development
 ```
 
